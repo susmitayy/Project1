@@ -6,7 +6,17 @@ exports.getAddProduct = (req, res) => {
 }
 
 exports.getEditProduct = (req, res) => {
-    res.render('admin/edit_product')
+    console.log(req.params.id)
+    Product.findById(req.params.id)
+    .then(result => {
+        res.render('admin/edit_product', {
+            data: result
+        })
+    })
+    .catch(err => {
+
+    })
+    
 }
 
 exports.getProducts = (req, res) => {
@@ -25,7 +35,28 @@ exports.postAddProduct = (req, res) => {
     console.log(req.body)
     Product.create({...req.body})
     .then(result => {
-        console.log(result)
+       res.redirect('/')
+    })
+    .catch(err => {
+        console.log(err)
+    })
+}
+
+exports.getDeleteProduct = (req, res) => { 
+    Product.findByIdAndDelete(req.params.id)
+    .then(result => {
+        res.redirect('/admin/products')
+    })
+    .catch(err => {
+        console.log(err)
+    })
+}
+
+exports.postEditProduct = (req, res) => {
+  
+    Product.findByIdAndUpdate(req.params.id, {...req.body})
+    .then(result => {
+        res.redirect('/admin/products')
     })
     .catch(err => {
         console.log(err)

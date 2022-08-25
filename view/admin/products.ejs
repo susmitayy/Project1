@@ -23,6 +23,11 @@
                 <td><%= i+1 %></td>
                 <td><%= data[i].name %></td>
                 <td><%= data[i].color %></td>
+                <td>
+                 <a href="/admin/edit-product/<%= data[i].id %>">edit</a> 
+                  |
+                 <a href="/admin/delete-product/<%= data[i].id %>">delete</a> 
+                </td>
               </tr>
               <% } %>
             </thead>
